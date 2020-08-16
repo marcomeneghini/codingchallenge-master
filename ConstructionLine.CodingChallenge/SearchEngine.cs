@@ -5,8 +5,15 @@ namespace ConstructionLine.CodingChallenge
     public class SearchEngine
     {
         private readonly List<Shirt> _shirts;
+        private readonly List<IObjectIndex<Shirt>> _indexes;
+        private readonly IObjectIndexScanner<Shirt> _indexScanner;
+        private readonly ISummaryBuilder _summaryBuilder;
 
-        public SearchEngine(List<Shirt> shirts)
+        public SearchEngine(List<Shirt> shirts) :
+             this(shirts,
+                 new ShirtIndexBuilder(),
+                 new ShirtIndexScanner(),
+                 new SummaryBuilder())
         {
             _shirts = shirts;
 
@@ -14,14 +21,23 @@ namespace ConstructionLine.CodingChallenge
 
         }
 
+        public SearchEngine(
+            List<Shirt> shirts,
+            IObjectIndexBuilder<Shirt> indexBuilder,
+            IObjectIndexScanner<Shirt> indexScanner,
+            ISummaryBuilder summaryBuilder)
+        {
+            _indexes = indexBuilder.BuildIndexes(shirts);
+            _indexScanner = indexScanner;
+            _summaryBuilder = summaryBuilder;
+        }
+
 
         public SearchResults Search(SearchOptions options)
         {
-            // TODO: search logic goes here.
+            var filteredShirts = _indexScanner.GetObjects(_indexes, options);
 
-            return new SearchResults
-            {
-            };
+            return _summaryBuilder.GetShirtResult(filteredShirts);
         }
     }
 }

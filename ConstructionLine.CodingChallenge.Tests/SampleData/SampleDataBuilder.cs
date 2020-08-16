@@ -41,5 +41,21 @@ namespace ConstructionLine.CodingChallenge.Tests.SampleData
             var index = _random.Next(0, colors.Count);
             return colors.ElementAt(index);
         }
+
+        public static Shirt GenerateSingleShirt(Size size, Color color)
+        {
+            var id = Guid.NewGuid();
+            return new Shirt(id, id.ToString(), size, color);
+        }
+
+        public static List<Shirt> GenerateShirts(int count, Size size, Color color)
+        {
+            var shirts = new List<Shirt>();
+            for (int i = 0; i < count; i++)
+            {
+                shirts.Add(GenerateSingleShirt(size, color));
+            }
+            return shirts;
+        }
     }
 }

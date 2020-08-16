@@ -28,5 +28,22 @@ namespace ConstructionLine.CodingChallenge
                 Medium,
                 Large
             };
+
+        // implement Equald and GetHashCode as the class will be a key in a lookup
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+      
+        public override bool Equals(object obj)
+        {
+            if (obj is Size)
+            {
+                return Id.Equals(((Size)obj).Id);
+            }
+            return false;
+        }
+      
     }
 }
