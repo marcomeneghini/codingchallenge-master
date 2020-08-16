@@ -12,7 +12,7 @@ namespace ConstructionLine.CodingChallenge
             List<Shirt> shirts = new List<Shirt>();
             foreach (var index in indexes)
             {
-                var shirtsPerIndex = index.Find(searchOptions);
+                var shirtsPerIndex = index.Find(searchOptions).ToList();
                 if (!shirtsPerIndex.Any())                
                     continue;
                 
