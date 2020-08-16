@@ -52,7 +52,8 @@ namespace ConstructionLine.CodingChallenge.Tests.UnitTests
                     new object[] { shirts, new List<Size> { Size.Small }, smallShirtsCount },
                     new object[] { shirts, new List<Size> { Size.Medium }, mediumShirtsCount },
                     new object[] { shirts, new List<Size> { Size.Large }, largeShirtsCount },
-                    new object[] { shirts, new List<Size> { Size.Large, Size.Medium }, largeShirtsCount+ mediumShirtsCount }
+                    new object[] { shirts, new List<Size> { Size.Large, Size.Medium }, largeShirtsCount+ mediumShirtsCount },
+                     new object[] { shirts, new List<Size> { Size.Large, Size.Medium, Size.Small }, largeShirtsCount+ mediumShirtsCount+ smallShirtsCount }
                 };
             }
         }
