@@ -47,6 +47,25 @@ namespace ConstructionLine.CodingChallenge.Tests.UnitTests
             Assert.Empty(actualShirts);
         }
 
+        [Fact]
+        public void GetObjectWhen2Indexes1Results()
+        {
+            // arrange
+            var searchOptions = new SearchOptions();
+            var mockIndex1 = new Mock<IObjectIndex<Shirt>>();
+            var shirts1 = Generate3LargeShirts_BlackBlueRed();
+            var shirts2 = new List<Shirt> { shirts1.First(), SampleDataBuilder.GenerateSingleShirt(Size.Medium, Color.Black) };
+            mockIndex1.Setup(x => x.Find(searchOptions)).Returns(shirts1);
+            var mockIndex2 = new Mock<IObjectIndex<Shirt>>();
+            mockIndex2.Setup(x => x.Find(searchOptions)).Returns(shirts2);
+            // act
+            ShirtIndexScanner shirtIndexScanner = new ShirtIndexScanner();
+            var actualShirts = shirtIndexScanner.GetObjects(new List<IObjectIndex<Shirt>> { mockIndex1.Object, mockIndex2.Object }, searchOptions);
+
+            // assert
+            Assert.Equal(1, actualShirts.Count());
+        }
+
         private List<Shirt> Generate3LargeShirts_BlackBlueRed()
         {
             return new List<Shirt>
